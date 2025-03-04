@@ -80,21 +80,24 @@ export default function Home() {
       "• Last watched: 4 months ago\n" +
       "• Potential annual savings: $480\n\n" +
       "Total potential annual savings: $1,440\n\n" +
-      "Would you like me to help you cancel these subscriptions?";
+      "Would you like me to set a reminder to cancel these subscriptions?";
 
     let i = 0;
     const streamingSpeed = 20;
 
-    const interval = setInterval(() => {
-      if (i <= answer.length) {
-        setStreamedText(answer.substring(0, i));
-        i += 1;
-      } else {
-        clearInterval(interval);
-        setIsStreaming(false);
-        setInitialResponseComplete(true);
-      }
-    }, streamingSpeed);
+    // Add a 1 second delay before starting to type
+    setTimeout(() => {
+      const interval = setInterval(() => {
+        if (i <= answer.length) {
+          setStreamedText(answer.substring(0, i));
+          i += 1;
+        } else {
+          clearInterval(interval);
+          setIsStreaming(false);
+          setInitialResponseComplete(true);
+        }
+      }, streamingSpeed);
+    }, 1000); // 1 second delay
   };
 
   const streamFollowUpAnswer = () => {
@@ -107,15 +110,19 @@ export default function Home() {
 
     setIsFollowUpStreaming(true);
 
-    const interval = setInterval(() => {
-      if (i <= followUpAnswer.length) {
-        setFollowUpStreamedText(followUpAnswer.substring(0, i));
-        i += 1;
-      } else {
-        clearInterval(interval);
-        setIsFollowUpStreaming(false);
-      }
-    }, streamingSpeed);
+    // Add a 1 second delay before showing the suggested task card
+    setTimeout(() => {
+      const interval = setInterval(() => {
+        if (i <= followUpAnswer.length) {
+          // Still update the state but we won't display this text
+          setFollowUpStreamedText(followUpAnswer.substring(0, i));
+          i += 1;
+        } else {
+          clearInterval(interval);
+          setIsFollowUpStreaming(false);
+        }
+      }, streamingSpeed);
+    }, 1000); // 1 second delay
   };
 
   const handleFollowUpClick = () => {
@@ -141,10 +148,19 @@ export default function Home() {
   };
 
   const renderInsightsView = () => (
-    <div className="flex flex-col h-full bg-white">
+    <div className="flex flex-col h-full bg-[#F5F5F5]">
       {/* Header */}
       <div className="p-4 relative">
-        <div className="flex justify-between items-start">
+        {/* Progress indicator lines */}
+        <div className="absolute top-0 left-0 right-0 flex gap-2 px-4 py-2">
+          <div className="h-1 bg-gray-700 flex-1 rounded-full"></div>
+          <div className="h-1 bg-gray-200 flex-1 rounded-full"></div>
+          <div className="h-1 bg-gray-200 flex-1 rounded-full"></div>
+          <div className="h-1 bg-gray-200 flex-1 rounded-full"></div>
+          <div className="h-1 bg-gray-200 flex-1 rounded-full"></div>
+        </div>
+        
+        <div className="flex justify-between items-start mt-3">
           <div>
             <h1 className="text-[17px] text-gray-500 font-normal mb-1">
               Weekly check-in
@@ -159,11 +175,6 @@ export default function Home() {
               <X size={18} />
             </button>
           </div>
-        </div>
-
-        {/* Progress bar */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gray-100">
-          <div className="h-full w-1/3 bg-gray-300 rounded-full"></div>
         </div>
       </div>
 
@@ -185,46 +196,49 @@ export default function Home() {
           <h2 className="serif-font text-[24px] sm:text-[28px] leading-tight mb-4">
             You&apos;re spending $43 more on subscriptions this month
           </h2>
-          <p className="text-gray-500 text-[15px] sm:text-[17px]">
+          <p className="text-gray-500 text-[17px] sm:text-[19px]">
             Review unused subscriptions to immediately save $1K+ this year
           </p>
         </div>
 
         {/* Divider with signature */}
-        <div className="relative py-8">
-          <div className="border-t-2 border-gray-300"></div>
+        <div className="py-8">
           <img
             src="/divider.png"
             alt="Signature"
-            className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-5"
+            className="mx-auto"
             width={800}
             height={200}
           />
         </div>
 
         {/* Follow-up Questions Section */}
-        <div className="px-4 pb-4">
+        <div className="px-4 pb-8">
           <div className="bg-white rounded-[28px] shadow-sm p-6">
-            <div className="text-gray-500 mb-4 text-[15px]">
+            <div className="text-gray-500 mb-6 text-[17px]">
               Ask follow up questions
             </div>
 
             <button
-              className="w-full text-left follow-up-question text-[17px]"
+              className="w-full text-left follow-up-question text-[17px] mb-4"
               onClick={handleFollowUpClick}
             >
               Which subscriptions should I cancel?
             </button>
 
-            <button className="w-full text-left follow-up-question text-[17px]">
+            <button className="w-full text-left follow-up-question text-[17px] mb-8">
               How would reduce 20% subscriptions cost help me save more towards
               my goal?
             </button>
 
-            <div className="input-bar mt-6 relative bg-[#F5F5F7]">
-              <div className="text-gray-500 text-[15px]">Ask Peek anything</div>
+            <div className="input-bar">
+              <input
+                type="text"
+                placeholder="Ask Peek anything"
+                className="w-full bg-transparent outline-none text-gray-500 text-[17px]"
+              />
               <button className="send-button">
-                <ArrowUp size={18} />
+                <ArrowUp size={20} />
               </button>
             </div>
           </div>
@@ -245,7 +259,7 @@ export default function Home() {
           <div className="drawer-handle" />
 
           {/* Chat header with close button */}
-          <div className="p-4 border-b border-gray-200">
+          <div className="p-4 border-b border-gray-200 relative">
             <div className="flex items-center justify-between">
               <button
                 onClick={closeDrawer}
@@ -261,7 +275,7 @@ export default function Home() {
           </div>
 
           {/* Chat messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 flex flex-col">
             <div className="user-message">
               Which subscriptions should I cancel?
             </div>
@@ -315,7 +329,7 @@ export default function Home() {
           <div className="drawer-handle" />
 
           {/* Chat header */}
-          <div className="p-4 border-b border-gray-200">
+          <div className="p-4 border-b border-gray-200 relative">
             <div className="flex items-center justify-between">
               <button
                 onClick={closeDrawer}
@@ -330,7 +344,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 flex flex-col">
             <div className="user-message">
               Which subscriptions should I cancel?
             </div>
@@ -360,7 +374,6 @@ export default function Home() {
               <div className="ai-message">
                 {isFollowUpStreaming ? (
                   <>
-                    <div className="streaming-text">{followUpStreamedText}</div>
                     <div className="typing-indicator mt-2">
                       <span></span>
                       <span></span>
@@ -369,12 +382,7 @@ export default function Home() {
                   </>
                 ) : (
                   <>
-                    <div className="streaming-text">
-                      Given your usage, cancelling Classpass and MasterClass
-                      could save you $120/month—that&apos;s $1,440/year!
-                    </div>
-
-                    {/* Suggested Task Card - only show when streaming is complete */}
+                    {/* Only show the Suggested Task Card without the text response */}
                     {!isFollowUpStreaming && followUpStreamedText && (
                       <div className="suggested-task">
                         <div className="suggested-task-label">
@@ -440,7 +448,7 @@ export default function Home() {
   );
 
   return (
-    <main className="flex min-h-screen w-full bg-white">
+    <main className="flex min-h-screen w-full bg-[#F5F5F5]">
       <div className="flex flex-col w-full h-full">
         {view === "insights" && renderInsightsView()}
         {view === "chat" && renderChatView()}
