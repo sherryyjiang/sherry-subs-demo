@@ -274,7 +274,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Chat messages */}
+          {/* Chat messages - use flex-1 to allow it to scroll while keeping input visible */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4 flex flex-col">
             <div className="user-message">
               Which subscriptions should I cancel?
@@ -299,8 +299,8 @@ export default function Home() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input area */}
-          <div className="p-4 border-t border-gray-200">
+          {/* Input area - fixed at bottom */}
+          <div className="p-4 border-t border-gray-200 bg-white">
             <div className="input-bar">
               <input
                 type="text"
@@ -344,6 +344,7 @@ export default function Home() {
             </div>
           </div>
 
+          {/* Chat messages - use flex-1 to allow it to scroll while keeping input visible */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4 flex flex-col">
             <div className="user-message">
               Which subscriptions should I cancel?
@@ -420,6 +421,7 @@ export default function Home() {
             <div ref={messagesEndRef} />
           </div>
 
+          {/* Input area - fixed at bottom */}
           <div className="p-4 bg-white border-t border-gray-200">
             <form onSubmit={handleFollowUpSubmit}>
               <div className="input-bar">
