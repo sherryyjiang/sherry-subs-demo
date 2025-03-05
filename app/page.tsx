@@ -307,15 +307,16 @@ export default function Home() {
           </div>
 
           {/* Input area - fixed at bottom */}
-          <div className="p-4 border-t border-gray-200 bg-white">
+          <div className="p-3 border-t border-gray-200 bg-white">
             <div className="input-bar">
               <input
                 type="text"
                 placeholder="Ask Peek anything"
-                className="w-full bg-transparent outline-none text-[15px]"
+                className="w-full bg-transparent outline-none text-[15px] px-1"
+                ref={inputRef}
               />
               <button className="send-button">
-                <ArrowUp size={18} />
+                <ArrowUp size={16} />
               </button>
             </div>
           </div>
@@ -436,7 +437,7 @@ export default function Home() {
           </div>
 
           {/* Input area - fixed at bottom */}
-          <div className="p-4 bg-white border-t border-gray-200">
+          <div className="p-3 bg-white border-t border-gray-200">
             <form onSubmit={handleFollowUpSubmit}>
               <div className="input-bar">
                 <input
@@ -445,7 +446,7 @@ export default function Home() {
                   value={followUpQuestion}
                   onChange={(e) => setFollowUpQuestion(e.target.value)}
                   placeholder="Ask Peek anything"
-                  className="w-full bg-transparent outline-none text-[14px] sm:text-[15px]"
+                  className="w-full bg-transparent outline-none text-[15px] px-1"
                   disabled={!initialResponseComplete || isStreaming}
                 />
                 <button
@@ -453,7 +454,7 @@ export default function Home() {
                   className="send-button"
                   disabled={!initialResponseComplete || isStreaming}
                 >
-                  <ArrowUp size={18} />
+                  <ArrowUp size={16} />
                 </button>
               </div>
             </form>
