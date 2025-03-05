@@ -267,9 +267,16 @@ export default function Home() {
               >
                 <X size={20} />
               </button>
-              <h2 className="text-[17px] font-medium text-center flex-1">
-                Chat
-              </h2>
+              <div className="flex flex-col items-center">
+                <img 
+                  src="/Peek Logo without Type.png" 
+                  alt="Peek Logo" 
+                  className="h-8 w-auto mb-1"
+                />
+                <h2 className="text-[15px] font-medium">
+                  Peek
+                </h2>
+              </div>
               <div className="w-8" /> {/* Spacer for centering */}
             </div>
           </div>
@@ -337,9 +344,16 @@ export default function Home() {
               >
                 <X size={20} />
               </button>
-              <h2 className="text-[17px] font-medium text-center flex-1">
-                Chat
-              </h2>
+              <div className="flex flex-col items-center">
+                <img 
+                  src="/Peek Logo without Type.png" 
+                  alt="Peek Logo" 
+                  className="h-8 w-auto mb-1"
+                />
+                <h2 className="text-[15px] font-medium">
+                  Peek
+                </h2>
+              </div>
               <div className="w-8" /> {/* Spacer for centering */}
             </div>
           </div>
