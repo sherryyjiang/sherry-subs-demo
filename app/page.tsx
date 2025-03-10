@@ -267,6 +267,8 @@ export default function Home() {
                 <Image 
                   src="/Peek Logo without Type.png" 
                   alt="Peek Logo" 
+                  width={32}
+                  height={32}
                   className="h-8 w-auto mb-1"
                 />
                 <h2 className="text-[15px] font-medium">
@@ -279,17 +281,6 @@ export default function Home() {
 
           {/* Chat messages - use flex-1 to allow it to scroll while keeping input visible */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4 flex flex-col">
-            <div className="flex items-center gap-2">
-              <Image
-                src="/avatar.png"
-                alt="User Avatar"
-                width={24}
-                height={24}
-                className="rounded-full"
-              />
-              <div className="text-gray-500 text-sm">You</div>
-            </div>
-
             <div className="user-message">
               How did I spend so much on subscriptions?
             </div>
@@ -356,6 +347,8 @@ export default function Home() {
                 <Image 
                   src="/Peek Logo without Type.png" 
                   alt="Peek Logo" 
+                  width={32}
+                  height={32}
                   className="h-8 w-auto mb-1"
                 />
                 <h2 className="text-[15px] font-medium">
@@ -368,17 +361,6 @@ export default function Home() {
 
           {/* Chat messages - use flex-1 to allow it to scroll while keeping input visible */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4 flex flex-col">
-            <div className="flex items-center gap-2">
-              <Image
-                src="/avatar.png"
-                alt="User Avatar"
-                width={24}
-                height={24}
-                className="rounded-full"
-              />
-              <div className="text-gray-500 text-sm">You</div>
-            </div>
-
             <div className="user-message">
               How did I spend so much on subscriptions?
             </div>
@@ -435,17 +417,6 @@ export default function Home() {
                 )}
               </div>
             )}
-
-            <div className="flex items-center gap-2">
-              <Image
-                src="/peek-avatar.png"
-                alt="Peek Avatar"
-                width={24}
-                height={24}
-                className="rounded-full"
-              />
-              <div className="text-gray-500 text-sm">Peek</div>
-            </div>
 
             {messages.map((message, index) => (
               <div
