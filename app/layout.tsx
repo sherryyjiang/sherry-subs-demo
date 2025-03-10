@@ -1,6 +1,21 @@
 import type React from "react"
 import type { Metadata } from "next"
 import "./globals.css"
+import { Instrument_Sans, Hedvig_Letters_Serif } from 'next/font/google'
+
+// Define the fonts
+const instrumentSans = Instrument_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['400', '500', '600'],
+  variable: '--font-instrument-sans',
+})
+
+const hedvigLettersSerif = Hedvig_Letters_Serif({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-hedvig-letters',
+})
 
 export const metadata: Metadata = {
   title: "Tax Chat",
@@ -13,15 +28,9 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${instrumentSans.variable} ${hedvigLettersSerif.variable}`}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&family=Instrument+Sans:wght@400;500;600&display=swap"
-          rel="stylesheet"
-        />
       </head>
       <body>{children}</body>
     </html>

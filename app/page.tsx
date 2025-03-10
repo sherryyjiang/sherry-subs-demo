@@ -3,6 +3,8 @@
 import { useState, useEffect, useRef } from "react";
 import { ArrowUp, Share, X, Bookmark } from "lucide-react";
 import { useChat } from "ai/react";
+import ExpenseChart from "./components/ExpenseChart";
+import Image from "next/image";
 
 export default function Home() {
   const [view, setView] = useState<"insights" | "chat" | "followUp">(
@@ -71,16 +73,21 @@ export default function Home() {
 
   const streamAnswer = () => {
     const answer =
-      "This is a great question! Let me analyze your subscriptions:\n\n" +
-      "Based on your usage patterns, here are the subscriptions you might want to consider canceling:\n\n" +
-      "1. ClassPass ($80/month)\n" +
-      "• No logged sessions in the last 3 months\n" +
-      "• Potential annual savings: $960\n\n" +
-      "2. MasterClass ($40/month)\n" +
-      "• Last watched: 4 months ago\n" +
-      "• Potential annual savings: $480\n\n" +
-      "Total potential annual savings: $1,440\n\n" +
-      "Would you like me to set a reminder to cancel these subscriptions?";
+      "Let me break down your subscription spending of $838.64:\n\n" +
+      "Your subscriptions are spread across several categories:\n\n" +
+      "1. News & Newsletters (41%, $364.80)\n" +
+      "• TIA News is your largest subscription at $278.81\n" +
+      "• You have 7 other news subscriptions ranging from $7-21\n\n" +
+      "2. AI & Productivity Tools (31%, $273.65)\n" +
+      "• 13 different services including ChatGPT, Claude AI, and productivity apps\n" +
+      "• YNAB is the highest at $43.96\n\n" +
+      "3. Entertainment & Media (16%, $141.63)\n" +
+      "• 8 services including Netflix, Disney+, and Kindle\n\n" +
+      "4. Health & Fitness (11%, $99.00)\n" +
+      "• ClassPass Monthly subscription\n\n" +
+      "5. Food Services (1%, $12.90)\n" +
+      "• Deliveroo Plus subscription\n\n" +
+      "Would you like suggestions on how to optimize these subscriptions?";
 
     let i = 0;
     const streamingSpeed = 20;
@@ -102,8 +109,7 @@ export default function Home() {
 
   const streamFollowUpAnswer = () => {
     const followUpAnswer =
-      "Given your usage, cancelling Classpass and MasterClass could save " +
-      "you $120/month—that's $1,440/year!";
+      "I notice you have multiple overlapping subscriptions. You could save around $150/month by consolidating your news and AI tool subscriptions.";
 
     let i = 0;
     const streamingSpeed = 20;
@@ -165,7 +171,7 @@ export default function Home() {
             <h1 className="text-[17px] text-gray-500 font-normal mb-1">
               Weekly check-in
             </h1>
-            <div className="text-gray-500 text-[15px]">Dec 29 - Jan 4</div>
+            <div className="text-gray-500 text-[15px]">Feb 1 - Feb 14</div>
           </div>
           <div className="flex items-center gap-4">
             <button className="text-gray-500 p-1">
@@ -180,30 +186,21 @@ export default function Home() {
 
       {/* Chart Section */}
       <div className="flex-1 px-6 pt-6 overflow-y-auto">
-        <div className="flex justify-center items-end gap-8 sm:gap-16 mb-12">
-          <div className="flex flex-col items-center">
-            <div className="text-[22px] mb-2 font-medium">$237</div>
-            <div className="chart-bar w-[50px] sm:w-[60px] h-[120px] sm:h-[140px]"></div>
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="text-[22px] mb-2 font-medium">$280</div>
-            <div className="chart-bar w-[50px] sm:w-[60px] h-[170px] sm:h-[200px]"></div>
-          </div>
-        </div>
+        <ExpenseChart />
 
         {/* Main Text */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-10 mt-8">
           <h2 className="serif-font text-[24px] sm:text-[28px] leading-tight mb-4">
-            You&apos;re spending $43 more on subscriptions this month
+            You spent a total of <strong>$4,014.30</strong> last month
           </h2>
           <p className="text-gray-500 text-[17px] sm:text-[19px]">
-            Review unused subscriptions to immediately save $1K+ this year
+            Your biggest categories were food (<strong>$1,524.76</strong>) and subscriptions (<strong>$838.64</strong>)
           </p>
         </div>
 
         {/* Divider with signature */}
         <div className="py-8">
-          <img
+          <Image
             src="/divider.png"
             alt="Signature"
             className="mx-auto"
@@ -213,7 +210,7 @@ export default function Home() {
         </div>
 
         {/* Follow-up Questions Section */}
-        <div className="px-4 pb-8">
+        <div className="px-4 pb-8 mt-6">
           <div className="bg-white rounded-[28px] shadow-sm p-6">
             <div className="text-gray-500 mb-6 text-[17px]">
               Ask follow up questions
@@ -223,12 +220,11 @@ export default function Home() {
               className="w-full text-left follow-up-question text-[17px] mb-4"
               onClick={handleFollowUpClick}
             >
-              Which subscriptions should I cancel?
+              How did I spend so much on subscriptions?
             </button>
 
             <button className="w-full text-left follow-up-question text-[17px] mb-8">
-              How would reduce 20% subscriptions cost help me save more towards
-              my goal?
+              What am I spending on in the food category?
             </button>
 
             <div className="input-bar">
@@ -268,7 +264,7 @@ export default function Home() {
                 <X size={20} />
               </button>
               <div className="flex flex-col items-center">
-                <img 
+                <Image 
                   src="/Peek Logo without Type.png" 
                   alt="Peek Logo" 
                   className="h-8 w-auto mb-1"
@@ -283,8 +279,19 @@ export default function Home() {
 
           {/* Chat messages - use flex-1 to allow it to scroll while keeping input visible */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4 flex flex-col">
+            <div className="flex items-center gap-2">
+              <Image
+                src="/avatar.png"
+                alt="User Avatar"
+                width={24}
+                height={24}
+                className="rounded-full"
+              />
+              <div className="text-gray-500 text-sm">You</div>
+            </div>
+
             <div className="user-message">
-              Which subscriptions should I cancel?
+              How did I spend so much on subscriptions?
             </div>
 
             {isStreaming ? (
@@ -346,7 +353,7 @@ export default function Home() {
                 <X size={20} />
               </button>
               <div className="flex flex-col items-center">
-                <img 
+                <Image 
                   src="/Peek Logo without Type.png" 
                   alt="Peek Logo" 
                   className="h-8 w-auto mb-1"
@@ -361,8 +368,19 @@ export default function Home() {
 
           {/* Chat messages - use flex-1 to allow it to scroll while keeping input visible */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4 flex flex-col">
+            <div className="flex items-center gap-2">
+              <Image
+                src="/avatar.png"
+                alt="User Avatar"
+                width={24}
+                height={24}
+                className="rounded-full"
+              />
+              <div className="text-gray-500 text-sm">You</div>
+            </div>
+
             <div className="user-message">
-              Which subscriptions should I cancel?
+              How did I spend so much on subscriptions?
             </div>
 
             {isStreaming ? (
@@ -405,8 +423,7 @@ export default function Home() {
                           Suggested task
                         </div>
                         <div className="suggested-task-title text-[17px] sm:text-[20px]">
-                          Review and cancel Classpass and Masterclass
-                          subscriptions
+                          Save $370.75 per month by cancelling all news subscriptions, Classpass, unused streaming services (Disney+ & Apple), and duplicate AI tools.
                         </div>
                         <button className="add-to-tasks-button text-[14px] sm:text-[15px]">
                           <Bookmark size={16} className="bookmark-icon" /> Add
@@ -418,6 +435,17 @@ export default function Home() {
                 )}
               </div>
             )}
+
+            <div className="flex items-center gap-2">
+              <Image
+                src="/peek-avatar.png"
+                alt="Peek Avatar"
+                width={24}
+                height={24}
+                className="rounded-full"
+              />
+              <div className="text-gray-500 text-sm">Peek</div>
+            </div>
 
             {messages.map((message, index) => (
               <div
